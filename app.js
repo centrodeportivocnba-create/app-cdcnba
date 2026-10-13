@@ -1,3 +1,4 @@
+
 let posts = JSON.parse(localStorage.getItem('cnba_posts')) || [
     {
         id: 1,
