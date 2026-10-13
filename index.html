@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNBA - Estado Campo de Deportes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Archivo de estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- ENCABEZADO INSTITUCIONAL -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div id="headerLogoContainer" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden shrink-0">
+                    <span id="logoPlaceholderText" class="text-xs font-bold text-slate-400">CNBA</span>
+                    <img id="headerLogoImg" src="" alt="Logo" class="w-full h-full object-cover hidden">
+                </div>
+                <div>
+                    <h1 id="appNameTitle" class="font-bold text-base md:text-lg leading-tight">Colegio Nacional de Buenos Aires</h1>
+                    <p class="text-xs text-slate-400 font-medium tracking-wide">Campo de Deportes - Estado de Actividades</p>
+                </div>
+            </div>
+            <button onclick="toggleAdminModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span>Panel Admin</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-2xl w-full mx-auto p-4 flex-grow">
+        
+        <!-- ESTADO GENERAL ACTUAL -->
+        <section id="currentStatusCard" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6 transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Estado Vigente</span>
+                <span id="statusTimestamp" class="text-xs text-slate-400">Actualizado recientemente</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div id="statusIndicatorDot" class="w-4 h-4 rounded-full bg-emerald-500 shrink-0"></div>
+                <h2 id="statusTitleText" class="text-xl font-bold text-slate-900">Actividades con Normalidad</h2>
+            </div>
+            <p id="statusDescText" class="mt-2 text-slate-600 text-sm leading-relaxed">Todas las actividades en el campo de deportes se desarrollan según el cronograma habitual.</p>
+        </section>
+
+        <!-- HISTORIAL DE NOVEDADES -->
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Últimos Comunicados</h3>
+            <span class="text-xs text-slate-400" id="postCount">0 avisos</span>
+        </div>
+
+        <div id="postsContainer" class="space-y-4">
+            <!-- Dinámico -->
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>Dirección de Recursos Humanos / Campo de Deportes - CNBA</p>
+    </footer>
+
+    <!-- MODAL DE ACCESO / PANEL ADMIN -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+            
+            <!-- Login -->
+            <div id="adminLoginView">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg text-slate-900">Acceso Administración</h3>
+                    <button onclick="toggleAdminModal()" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
+                </div>
+                <p class="text-sm text-slate-600 mb-4">Ingrese la contraseña de encargado para publicar actualizaciones.</p>
+                <input type="password" id="adminPasswordInput" placeholder="Contraseña" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                <div class="flex space-x-2">
+                    <button onclick="toggleAdminModal()" class="w-1/2 bg-slate-100 text-slate-700 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-200 transition">Cancelar</button>
+                    <button onclick="verifyPassword()" class="w-1/2 bg-slate-900 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 transition">Ingresar</button>
+                </div>
+            </div>
+
+            <!-- Panel de Control -->
+            <div id="adminDashboardView" class="hidden">
+                <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h3 class="font-bold text-lg text-slate-900">Panel de Control</h3>
+                    <button onclick="toggleAdminModal()" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
+                </div>
+
+                <div class="flex space-x-1 bg-slate-100 p-1 rounded-xl mb-4 text-xs font-medium">
+                    <button onclick="switchAdminTab('post')" id="tabPostBtn" class="flex-1 py-2 rounded-lg bg-white text-slate-900 shadow-sm transition">Nuevo Aviso</button>
+                    <button onclick="switchAdminTab('config')" id="tabConfigBtn" class="flex-1 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition">Configuración</button>
+                </div>
+
+                <!-- Pestaña Post -->
+                <div id="adminTabPost" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Estado Climático / Modalidad</label>
+                        <select id="newStatusType" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-900">
+                            <option value="normal">Actividades Normales (Verde)</option>
+                            <option value="jso">Lluvia - Cambio a Modalidad JSO (Azul/Naranja)</option>
+                            <option value="suspended">Actividades Suspendidas (Rojo)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Mensaje / Comunicado</label>
+                        <textarea id="newStatusDesc" rows="3" placeholder="Detalle (ej. Se pasa al SUM por lluvia)..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Imagen Opcional</label>
+                        <input type="file" id="newStatusImage" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+                    </div>
+
+                    <button onclick="publishUpdate()" class="w-full bg-slate-900 text-white py-3 rounded-xl text-sm font-semibold hover:bg-slate-800 transition shadow-sm">Publicar Actualización</button>
+                </div>
+
+                <!-- Pestaña Config -->
+                <div id="adminTabConfig" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Nombre de la Institución</label>
+                        <input type="text" id="configAppName" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Subir Logo / Escudo</label>
+                        <input type="file" id="configLogoFile" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+                    </div>
+                    <button onclick="saveConfiguration()" class="w-full bg-slate-900 text-white py-3 rounded-xl text-sm font-semibold hover:bg-slate-800 transition shadow-sm">Guardar Cambios</button>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100 text-center">
+                    <button onclick="logoutAdmin()" class="text-xs text-red-600 hover:underline font-medium">Cerrar sesión de administrador</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Enlace al archivo de lógica -->
+    <script src="app.js"></script>
+</body>
+</html>
