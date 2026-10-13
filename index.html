@@ -75,8 +75,11 @@
                     <h3 class="font-bold text-lg text-slate-900">Acceso Administración</h3>
                     <button onclick="toggleAdminModal()" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
                 </div>
-                <p class="text-sm text-slate-600 mb-4">Ingrese la contraseña de encargado para publicar actualizaciones.</p>
+                <p class="text-sm text-slate-600 mb-4">Ingrese su usuario y contraseña de encargado.</p>
+                
+                <input type="text" id="adminUserInput" placeholder="Usuario" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
                 <input type="password" id="adminPasswordInput" placeholder="Contraseña" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                
                 <div class="flex space-x-2">
                     <button onclick="toggleAdminModal()" class="w-1/2 bg-slate-100 text-slate-700 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-200 transition">Cancelar</button>
                     <button onclick="verifyPassword()" class="w-1/2 bg-slate-900 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 transition">Ingresar</button>
